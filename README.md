@@ -106,13 +106,7 @@ Métricas obtidas no **conjunto de teste** (420 imagens):
 | mAP@0.5 | **0,9844** |
 | mAP@0.5:0.95 | **0,9742** |
 
-### Curvas de treinamento e matriz de confusão
-
-![Curvas de treinamento](results.png)
-
-![Matriz de confusão](confusion_matrix.png)
-
-### Inferência em fotos reais (capturadas pelo grupo)
+### Resultados das predições — fotos reais (capturadas pelo grupo)
 
 | Bandeira | Predição | Confiança | Resultado |
 |----------|----------|-----------|-----------|
@@ -121,11 +115,14 @@ Métricas obtidas no **conjunto de teste** (420 imagens):
 | Reino Unido | Anguilla Flag | 68,5% | ❌ (classe ausente no dataset) |
 | Portugal | Morocco | 65,1% | ❌ (foto distante / cores parecidas) |
 
-![Detecções nas fotos reais](fotos_reais.png)
+![Detecções do modelo nas fotos reais](fotos_reais.png)
 
 > O alto desempenho no teste (mAP@0.5 = 0,98) contrasta com os erros em fotos reais do
 > Reino Unido e Portugal — efeito de **classe ausente** e **diferença de domínio**
 > (domain gap) entre o dataset e as condições reais de captura.
+
+> 📊 As **curvas de treinamento** e a **matriz de confusão** estão detalhadas no
+> **relatório técnico (PDF)**.
 
 ---
 
