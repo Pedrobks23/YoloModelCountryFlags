@@ -1,0 +1,42 @@
+# ============================================================
+# .gitignore (modo WHITELIST)
+# Por padrão IGNORA TUDO. Só sobe estritamente o que o
+# enunciado (PDF) pede no repositório:
+#   - notebook .ipynb executado
+#   - README.md (com seção visual das predições)
+#   - código de pré-processamento + imagens que sustentam o README
+# ============================================================
+
+# 1) Ignora todos os arquivos da RAIZ...
+/*
+# 2) ...mas mantém as subpastas navegáveis (para liberar itens dentro delas)
+!*/
+
+# 3) Arquivos da raiz que DEVEM subir:
+!/.gitignore
+!/README.md
+!/YOLO_Bandeiras.ipynb
+
+# 4) scripts/ — código de pré-processamento (limpeza do dataset)
+scripts/*
+!scripts/limpar_dataset.py
+
+# 5) data/ — apenas o link/instruções do dataset, NUNCA os arquivos
+data/*
+!data/LINK_DATASET.md
+
+# 6) docs/ — imagens da seção visual do README (resultados das predições)
+#    (todas as imagens são mantidas; o LEIA-ME orienta quais adicionar)
+
+# ============================================================
+# Trava de segurança: estes NUNCA sobem, em qualquer pasta
+# ============================================================
+*.zip
+*.pt
+*.pyc
+runs/
+dataset/
+dataset_original/
+dataset_clean/
+__pycache__/
+.ipynb_checkpoints/
