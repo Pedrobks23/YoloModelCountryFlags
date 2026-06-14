@@ -115,7 +115,10 @@ Métricas obtidas no **conjunto de teste** (420 imagens):
 | Reino Unido | Anguilla Flag | 68,5% | ❌ (classe ausente no dataset) |
 | Portugal | Morocco | 65,1% | ❌ (foto distante / cores parecidas) |
 
-![Detecções do modelo nas fotos reais](fotos_reais.png)
+![Fotos reais capturadas pelo grupo e a predição do modelo](fotos_reais.png)
+
+*Fotos de bandeiras capturadas pelo próprio grupo, com o resultado da predição do modelo
+indicado em cada uma.*
 
 > O alto desempenho no teste (mAP@0.5 = 0,98) contrasta com os erros em fotos reais do
 > Reino Unido e Portugal — efeito de **classe ausente** e **diferença de domínio**
