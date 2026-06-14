@@ -17,27 +17,13 @@ em imagens, com aplicação em fotos reais capturadas pelo grupo.
 
 ---
 
-## 📁 Estrutura do repositório
+## 📦 Conteúdo do repositório
 
-```
-YoloModelCountryFlags/
-├── README.md                  # Este arquivo
-├── YOLO_Bandeiras.ipynb       # Notebook principal (EXECUTADO no Colab, com saídas)
-├── scripts/
-│   └── limpar_dataset.py      # Script de limpeza/reindexação do dataset
-├── docs/
-│   ├── results.png            # Curvas de treinamento (geradas pelo YOLO)
-│   ├── confusion_matrix.png   # Matriz de confusão
-│   └── inferencias/           # Prints das detecções (fotos reais + teste)
-└── data/
-    └── LINK_DATASET.md        # Link/instruções p/ baixar o dataset (não versionar o .zip)
-```
-
-> 📄 O **relatório técnico (PDF)** é entregue diretamente na tarefa do AVA, conforme o
-> enunciado — não precisa estar versionado neste repositório.
-
-> ⚠️ **Não suba o dataset (`.zip`, imagens) para o GitHub** — são ~200 MB. Deixe apenas
-> o link do Roboflow e instruções de download.
+| Arquivo | Descrição |
+|---------|-----------|
+| `YOLO_Bandeiras.ipynb` | Notebook principal (executado no Colab, com todas as saídas) |
+| `limpar_dataset.py` | Script de limpeza/reindexação do dataset (pré-processamento) |
+| `README.md` | Este arquivo |
 
 ---
 
@@ -49,16 +35,33 @@ YoloModelCountryFlags/
 | **Licença** | CC BY 4.0 |
 | **Classes** | 86 bandeiras (após limpeza) |
 | **Imagens** | 10.187 (treino: 8.940 · validação: 827 · teste: 420) |
+| **Bounding boxes** | 10.033 (após limpeza) |
 
-### Limpeza aplicada
+### ⬇️ Baixar o dataset já limpo (pronto pra usar)
 
-As classes originais `0 (Afghanistan)` e `1 (Albania)` tinham anotações corrompidas e
-foram removidas. O script [`scripts/limpar_dataset.py`](scripts/limpar_dataset.py):
+O dataset limpo (`dataset_clean.zip`, ~203 MB) está disponível para download aqui:
+
+**🔗 [Download do dataset_clean.zip (Google Drive)](https://drive.google.com/file/d/1lqiEDRVNBUGcbJjkeIpLFSUEYd9eKVp3/view?usp=sharing)**
+
+> Esse zip já tem o `data.yaml` corrigido e as 86 classes reindexadas (0–85). Basta
+> fazer o upload dele no Colab quando o notebook pedir.
+
+### 🧹 Limpeza aplicada
+
+As classes originais `0 (Afghanistan)` e `1 (Albania)` tinham anotações corrompidas.
+O script `limpar_dataset.py`:
 
 - Remove as bounding boxes dessas classes (167 caixas);
 - Reindexa as 86 classes restantes (0–85);
 - Atualiza o `data.yaml` (`nc: 88 → 86`);
 - Gera uma cópia limpa **sem alterar o original**.
+
+Para reproduzir a limpeza a partir do dataset bruto do Roboflow:
+
+```bash
+pip install pyyaml
+python limpar_dataset.py   # ajuste os caminhos orig_base / clean_base no topo do script
+```
 
 ---
 
@@ -66,25 +69,17 @@ foram removidas. O script [`scripts/limpar_dataset.py`](scripts/limpar_dataset.p
 
 O notebook foi feito para rodar no **Google Colab** (com GPU).
 
-1. **Abra o notebook no Colab:**
-   `Arquivo → Abrir notebook → GitHub` e cole a URL deste repositório, ou faça upload de
-   `YOLO_Bandeiras.ipynb`.
+1. **Abra o notebook no Colab:** `Arquivo → Abrir notebook → GitHub` e cole a URL deste
+   repositório, ou faça upload de `YOLO_Bandeiras.ipynb`.
 
 2. **Ative a GPU:** `Ambiente de execução → Alterar tipo de ambiente → GPU (T4)`.
 
 3. **Execute as células na ordem.** Quando solicitado:
-   - **Upload do dataset:** envie o `dataset_clean.zip` (gerado pelo script de limpeza);
+   - **Upload do dataset:** envie o `dataset_clean.zip` (link de download acima);
    - **Upload das fotos reais:** envie as fotos de bandeiras capturadas pelo grupo.
 
 4. **Treinamento:** 60 épocas, `yolov8s.pt`, `imgsz=640`, `batch=16`.
    Se aparecer `CUDA out of memory`, reduza `batch` para `8`.
-
-### Reproduzir a limpeza do dataset localmente (opcional)
-
-```bash
-pip install pyyaml
-python scripts/limpar_dataset.py
-```
 
 ---
 
@@ -113,9 +108,9 @@ Métricas obtidas no **conjunto de teste** (420 imagens):
 
 ### Curvas de treinamento e matriz de confusão
 
-![Curvas de treinamento](docs/results.png)
+![Curvas de treinamento](results.png)
 
-![Matriz de confusão](docs/confusion_matrix.png)
+![Matriz de confusão](confusion_matrix.png)
 
 ### Inferência em fotos reais (capturadas pelo grupo)
 
@@ -126,11 +121,11 @@ Métricas obtidas no **conjunto de teste** (420 imagens):
 | Reino Unido | Anguilla Flag | 68,5% | ❌ (classe ausente no dataset) |
 | Portugal | Morocco | 65,1% | ❌ (foto distante / cores parecidas) |
 
-![Detecções nas fotos reais](docs/inferencias/fotos_reais.png)
+![Detecções nas fotos reais](fotos_reais.png)
 
 > O alto desempenho no teste (mAP@0.5 = 0,98) contrasta com os erros em fotos reais do
-> Reino Unido e Portugal — discutido no relatório como efeito de **classe ausente** e
-> **diferença de domínio** (domain gap) entre o dataset e as condições de captura.
+> Reino Unido e Portugal — efeito de **classe ausente** e **diferença de domínio**
+> (domain gap) entre o dataset e as condições reais de captura.
 
 ---
 
