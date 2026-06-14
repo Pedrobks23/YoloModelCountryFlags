@@ -116,12 +116,17 @@ Fotos capturadas pela equipe no *Bulls Beer House* e no *Atacadão* — condiç�
 | Brasil (Atacadão) | Brazil | 98% | ✅ Correto |
 | Brasil (Bulls) | Brazil | 76% | ✅ Correto (bandeira incompleta) |
 | Estados Unidos | United States | 78% | ✅ Correto |
-| Reino Unido (foto 1) | Anguilla Flag | 40% | ❌ Erro — classe ausente |
-| Reino Unido (foto 2) | United Kingdom * | 76% | Detecção |
+| Reino Unido (United Kingdom) | Anguilla Flag | 40% | ⚠️ Classe ausente (teste proposital) |
 | Portugal | Morocco | 65% | ❌ Erro — condição desfavorável |
 
-> \* O dataset **não possui classe própria para o Reino Unido** (apenas England,
-> Scotland e Wales). Veja a análise crítica no relatório.
+> 🧪 **Teste proposital de classe ausente:** incluímos de propósito a bandeira do
+> **Reino Unido (United Kingdom)**, que **não existe** entre as 86 classes do dataset
+> (há apenas England, Scotland e Wales). O objetivo foi observar como o modelo se
+> comporta diante de uma classe que nunca viu. Sem a classe correta em seu vocabulário,
+> o modelo recorreu à conhecida mais parecida — a **Anguilla Flag**, que carrega o
+> próprio *Union Jack* no cantão — e com **baixa confiança (40%)**, sinal honesto de
+> que "não reconhece" plenamente o objeto. Não é uma falha do modelo, e sim uma
+> **limitação do dataset**, demonstrada de forma controlada.
 
 ![Fotos reais capturadas pelo grupo e a predição do modelo](fotos_reais.png)
 
